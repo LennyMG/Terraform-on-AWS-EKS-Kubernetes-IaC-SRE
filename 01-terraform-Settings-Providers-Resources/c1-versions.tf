@@ -13,16 +13,19 @@ provider "aws" {
   region = "us-east-1"
 }
 
-# # Create a VPC
-# resource "aws_vpc" "example" {
-#   cidr_block = "172.31.0.0/16"
-# }
-
-# resource "aws_s3_bucket" "example" {
-#   bucket = "starcaster-bucket"
-
-# #   tags = {
-# #     Name        = "My bucket"
-# #     Environment = "Dev"
+# Create a VPC
+# resource "aws_vpc" "vpc_us-west-1" {
+#   provider = aws.aws-west-1
+#   cidr_block = "10.2.0.0/16"
+#   tags = {
+#     "Name" = "vpc-1"
 #   }
-}
+# }
+# # resource "aws_s3_bucket" "example" {
+# #   bucket = "starcaster-bucket"
+
+# # #   tags = {
+# # #     Name        = "My bucket"
+# # #     Environment = "Dev"
+# #   }
+# }
