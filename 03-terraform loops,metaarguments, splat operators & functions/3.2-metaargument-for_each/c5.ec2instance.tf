@@ -1,3 +1,6 @@
+# AZ Datasource
+
+
 # AWS EC2 Instance Terraform Variables
 resource "aws_instance" "my-ec2-vm" {
   ami           = data.aws_ami.amzlinux2.id
@@ -5,11 +8,11 @@ resource "aws_instance" "my-ec2-vm" {
   user_data = file("${path.module}/app1-install.sh")
   key_name = var.instance_keypair
   vpc_security_group_ids = [ aws_security_group.vpc-ssh.id, aws_security_group.vpc-web.id]
+  # Create EC2 Instance in all AZ of a VPC
+  for_each = toset(data.aws_availability_zones.my_azones.names)
+  availability_zone = each.key
+ # you can also use each.value because do list items each.key == each.value
   tags = {
-    "Name" = "EC2 Demo 2 "
+    "Name" = "for_each-Demo-${each.value}"
   }
-  }
-
-
-
-
+}
