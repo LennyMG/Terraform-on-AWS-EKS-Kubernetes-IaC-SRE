@@ -1,4 +1,9 @@
- #Create VPC Terraform Module
+# Change-1: Add Datasource named aws_availability_zones
+# AWS Availability Zones Datasource  
+data "aws_availability_zones" "available" {
+} 
+
+#Cireate VPC Terraform Module
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
   version = "2.78.0"
@@ -7,7 +12,8 @@ module "vpc" {
 # VPC Basic Details
   name = "${local.name}-${var.vpc_name}"
   cidr = var.vpc_cidr_block
-  azs             = var.vpc_availability_zones
+  # azs             = var.vpc_availability_zones
+   azs             = data.aws_availability_zones.available.names
   public_subnets  = var.vpc_public_subnets
   private_subnets = var.vpc_private_subnets  
 
